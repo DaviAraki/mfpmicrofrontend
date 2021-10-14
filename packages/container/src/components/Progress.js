@@ -5,7 +5,7 @@ import { LinearProgress } from '@material-ui/core';
 const useStyles = makeStyles((theme) => {
   return createStyles({
     bar: {
-      width: '100%',
+      width: '99%',
       '& > * + *': {
         marginTop: theme.spacing(2),
       },
