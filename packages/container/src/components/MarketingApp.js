@@ -11,7 +11,6 @@ export default () => {
       initialPath: history.location.pathname,
       onNavigate: ({ pathname: nextPathname }) => {
         const { pathname } = history.location;
-        console.log('container', nextPathname);
 
         if (pathname !== nextPathname) {
           history.push(nextPathname);
