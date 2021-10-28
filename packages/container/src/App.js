@@ -19,6 +19,8 @@ const generateClassName = createGenerateClassName({
 const history = createBrowserHistory();
 
 export default () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
   useEffect(() => {
     if (isSignedIn) {
       history.push('/dashboard');
@@ -27,7 +29,6 @@ export default () => {
     }
   }, [isSignedIn]);
 
-  const [isSignedIn, setIsSignedIn] = useState(false);
   return (
     <Router history={history}>
       <StylesProvider generateClassName={generateClassName}>
@@ -38,11 +39,14 @@ export default () => {
           />
           <Suspense fallback={<Progress />}>
             <Switch>
-              <Route path="/auth">
+              <Route path='/auth'>
                 <AuthLazy onSignIn={() => setIsSignedIn(true)} />
               </Route>
-              <Route path="/dashboard" component={DashboardLazy} />
-              <Route path="/" component={MarketingLazy} />
+              <Route path='/dashboard'>
+                {!isSignedIn && <Redirect to='/' />}
+                <DashboardLazy />
+              </Route>
+              <Route path='/' component={MarketingLazy} />
             </Switch>
           </Suspense>
         </div>
